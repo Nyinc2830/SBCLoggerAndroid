@@ -1,0 +1,3 @@
+configurations.create("default")
+artifacts.add("default", file('phidget21.jar'))
+artifacts.add("default", file('PhidgetsUSB.jar'))

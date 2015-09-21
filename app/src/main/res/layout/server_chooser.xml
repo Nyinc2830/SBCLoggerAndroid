@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lblPort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtServerAddress"
+        android:text="@string/port" />
+
+    <EditText
+        android:id="@+id/txtServerPort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtServerAddress"
+        android:layout_alignTop="@+id/lblPort"
+        android:ems="10"
+        android:hint="@string/server_port"
+        android:inputType="number"
+        android:text="@string/server_port" />
+
+    <TextView
+        android:id="@+id/lblPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtServerPort"
+        android:text="Password" />
+
+    <EditText
+        android:id="@+id/txtServerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:hint="@string/server_address"
+        android:inputType="textUri"
+        android:text="@string/server_address" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtServerPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtServerPort"
+        android:ems="10"
+        android:hint="@string/server_password"
+        android:inputType="textPassword"
+        android:text="@string/server_password" />
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtServerPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="Connect" />
+
+    <Spinner
+        android:id="@+id/cboPollData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/poll_data_spinner"
+        android:prompt="@string/data_poll_frequency"
+        android:layout_alignLeft="@+id/txtServerPassword"
+        android:layout_below="@+id/txtServerPassword" />
+
+    <TextView
+        android:id="@+id/lblMilliseconds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lblServerAddress"
+        android:layout_below="@+id/txtServerPassword"
+        android:text="Poll Data" />
+
+    <TextView
+        android:id="@+id/lblServerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Address" />
+
+    
+
+</RelativeLayout>

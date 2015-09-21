@@ -1,0 +1,2 @@
+include ':app', ':Phidgets21'
+project(':Phidgets21').projectDir = new File('Phidgets')
