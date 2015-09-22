@@ -36,7 +36,7 @@
 	
 	
 	
-	<string name="server_address">192.168.1.105</string>
+	<string name="server_address">192.168.1.18</string>
     <string name="server_port">5001</string>
     <string name="server_password">admin</string>
     <string name="log">Logging</string>

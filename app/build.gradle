@@ -23,6 +23,15 @@ android {
     task copyJniLibs(type: Copy) {
         from 'libs/armeabi'
         into 'src/main/jniLibs/armeabi'
+
+        from 'libs/armeabi-v7a'
+        into 'src/main/jniLibs/armeabi-v7a'
+
+        from 'libs/mips'
+        into 'src/main/jniLibs/mips'
+
+        from 'libs/x86'
+        into 'src/main/jniLibs/x86'
     }
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn(copyJniLibs)

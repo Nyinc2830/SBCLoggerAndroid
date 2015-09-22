@@ -1,4 +1,4 @@
-package com.greenenergyresearch.jamesfolk.datalogger;
+package com.camera.simplemjpeg;
 
 import java.io.IOException;
 import android.content.Context;
@@ -247,7 +247,7 @@ public class MjpegView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void freeCameraMemory(){
     	if(mIn!=null){
-//    		mIn.freeCameraMemory();
+    		mIn.freeCameraMemory();
     	}
     }
     

@@ -1,4 +1,4 @@
-package com.greenenergyresearch.jamesfolk.datalogger;
+package com.camera.simplemjpeg;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -47,8 +47,8 @@ public class MjpegInputStream extends DataInputStream {
     static {
     	System.loadLibrary("ImageProc");
     }
-//    public native int pixeltobmp(byte[] jp, int l, Bitmap bmp);
-//    public native void freeCameraMemory();
+    public native int pixeltobmp(byte[] jp, int l, Bitmap bmp);
+    public native void freeCameraMemory();
 	
     public static MjpegInputStream read(String surl) {
     	try {
@@ -255,8 +255,7 @@ public class MjpegInputStream extends DataInputStream {
         readFully(frameData, 0, mContentLength);
 
         if(count++%skip==0){
-//        	return pixeltobmp(frameData, mContentLength, bmp);
-            return 1;
+        	return pixeltobmp(frameData, mContentLength, bmp);
         }else{
         	return 0;
         }

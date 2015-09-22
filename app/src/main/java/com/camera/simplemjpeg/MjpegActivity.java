@@ -1,4 +1,4 @@
-package com.greenenergyresearch.jamesfolk.datalogger;
+package com.camera.simplemjpeg;
 
 import java.io.IOException;
 import java.net.URI;
@@ -24,6 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.greenenergyresearch.jamesfolk.datalogger.BaseTab;
+import com.greenenergyresearch.jamesfolk.datalogger.R;
 
 public class MjpegActivity extends Fragment implements BaseTab{
 //public class MjpegActivity extends Activity {
@@ -194,7 +197,7 @@ public class MjpegActivity extends Fragment implements BaseTab{
     	if(DEBUG) Log.d(TAG,"onDestroy()");
     	
     	if(mv!=null){
-//    		mv.freeCameraMemory();
+    		mv.freeCameraMemory();
     	}
     	
         super.onDestroy();
