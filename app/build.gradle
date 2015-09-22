@@ -10,9 +10,9 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-//        ndk {
-//            moduleName "ImageProc"
-//        }
+        ndk {
+            moduleName "ImageProc"
+        }
 
     }
     buildTypes {
@@ -28,38 +28,34 @@ android {
 
     // This task utilizes the Android.mk file defined in src/main/jni so that you
     // have more control over the build parameters (like library inclusion)
-//    task ndkBuild(type: Exec) {
-//        commandLine "/Applications/adt-bundle/ndk/ndk-build", '-C', file('src/main/jni').absolutePath
-//    }
+    task ndkBuild(type: Exec) {
+        commandLine "/Applications/adt-bundle/ndk/ndk-build", '-C', file('src/main/jni').absolutePath
+    }
 
     sourceSets {
         main {
             jniLibs{
-                srcDirs = ['src/main/libs']
+                srcDirs = ['src/main/libs','src/main/jniLibs']
             }
             jni {
                 srcDirs = []
             }
         }
     }
-//
-//    task copyJniLibs(type: Copy) {
-//        from 'libs/armeabi'
-//        into 'src/main/libs/armeabi'
-//
-//        from 'libs/armeabi-v7a'
-//        into 'src/main/libs/armeabi-v7a'
-//
-//        from 'libs/mips'
-//        into 'src/main/libs/mips'
-//
-//        from 'libs/x86'
-//        into 'src/main/libs/x86'
-//    }
-//    tasks.withType(JavaCompile) {
-//        compileTask -> compileTask.dependsOn(copyJniLibs)
-//    }
-//    clean.dependsOn 'cleanCopyJniLibs'
+
+
+    task copyJniLibs(type: Copy) {
+        from 'libs'
+        into 'src/main/jniLibs'
+    }
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(ndkBuild)
+    }
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(copyJniLibs)
+    }
+
+    clean.dependsOn 'cleanCopyJniLibs'
 }
 
 dependencies {
