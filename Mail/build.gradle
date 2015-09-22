@@ -1,0 +1,3 @@
+configurations.create("default")
+artifacts.add("default", file('mail.jar'))
+artifacts.add("default", file('org.apache.commons.net_2.0.0.v200905272248.jar'))

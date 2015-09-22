@@ -52,4 +52,9 @@
     </string-array>
     <string name="data_poll_frequency">Data Poll Frequency</string>
     <string name="email_address">Email Address</string>
+    <!--<string name="email_address_value">info@greenenergyresearch.com</string>-->
+    <string name="email_address_value">jamesfolk1@gmail.com</string>
+    <string name="email_address_password">IgTiFmEl12$</string>
+    <!--<string name="email_address_to">nickyaron@gmail.com</string>-->
+    <string name="email_address_to">jamesfolk1@gmail.com</string>
 </resources>

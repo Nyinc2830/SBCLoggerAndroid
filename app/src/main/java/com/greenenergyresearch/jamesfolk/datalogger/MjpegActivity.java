@@ -48,7 +48,16 @@ public class MjpegActivity extends Fragment implements BaseTab{
     
     private boolean suspending = false;
     private boolean created = false;
- 
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("Tag", "FragmentA.onDestroyView() has been called.");
+//        onPause();
+//        doreadit.cancel(true);
+    }
+
     @Override
 	public View onCreateView(LayoutInflater inflater, 
 			ViewGroup container,
@@ -107,12 +116,15 @@ public class MjpegActivity extends Fragment implements BaseTab{
         	mv.setResolution(width, height);
         }
         
-        if(!created)
+//        if(!created)
         {
-	        
-	        new DoRead().execute(URL);
+            new DoRead().execute(URL);
         }
-		
+//        else
+//        {
+//            onResume();
+//        }
+//
         created = true;
         
 		return (LinearLayout)view;

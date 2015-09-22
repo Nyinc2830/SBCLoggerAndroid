@@ -1,2 +1,3 @@
-include ':app', ':Phidgets21'
+include ':app', ':Phidgets21', ':GMail'
 project(':Phidgets21').projectDir = new File('Phidgets')
+project(':GMail').projectDir = new File('Mail')

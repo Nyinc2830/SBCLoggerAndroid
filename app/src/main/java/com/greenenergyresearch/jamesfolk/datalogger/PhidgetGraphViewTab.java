@@ -3,6 +3,9 @@ package com.greenenergyresearch.jamesfolk.datalogger;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import org.achartengine.ChartFactory;
@@ -22,11 +25,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.phidgets.Phidget;
 import com.phidgets.PhidgetException;
 
 import com.greenenergyresearch.jamesfolk.datalogger.PhidgetData.*;
@@ -211,7 +217,7 @@ public class PhidgetGraphViewTab extends Fragment implements BaseTab
 	private XYMultipleSeriesDataset mDataset = null;
 
 	private XYMultipleSeriesRenderer mRenderer = null;
-	
+
 	public String createImageFromBitmap(Bitmap bmp)
     {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -412,9 +418,50 @@ public class PhidgetGraphViewTab extends Fragment implements BaseTab
 						
 						m_ScreenShotPath = createImageFromBitmap(bitmap);
 						m_CSVFileContentPath = createFile(m_PhidgetHardwareFactory.toString());
-						
-						Intent intent=new Intent(getActivity().getApplicationContext(), EmailDialogue.class);
-						startActivity(intent);
+
+
+
+
+						Log.i("Send email", "");
+						String[] TO = {""};
+						String[] CC = {""};
+						Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+
+						SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						Date date = new Date();
+
+						String dataString = new String(dateFormat.format(date));
+
+						emailIntent.setData(Uri.parse("mailto:"));
+						emailIntent.setType("text/plain");
+						emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+						emailIntent.putExtra(Intent.EXTRA_CC, CC);
+						emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Logged data from " + dataString);
+						emailIntent.putExtra(Intent.EXTRA_TEXT, dataString);
+
+
+
+						ArrayList<Uri> uris = new ArrayList<Uri>();
+						uris.add(Uri.parse("file://" + PhidgetGraphViewTab.m_CSVFileContentPath));
+						uris.add(Uri.parse("file://" + PhidgetGraphViewTab.m_ScreenShotPath));
+						emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+//		startActivity(emailIntent);
+
+
+//		emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + PhidgetGraphViewTab.m_CSVFileContentPath));
+//		emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + PhidgetGraphViewTab.m_ScreenShotPath));
+
+						try {
+							startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+//			finish();
+//			Log.i("Finished sending email...", "");
+						}
+						catch (android.content.ActivityNotFoundException ex) {
+//							Toast.makeText(PhidgetGraphViewTab.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+						}
+
+//						Intent intent=new Intent(getActivity().getApplicationContext(), EmailDialogue.class);
+//						startActivity(intent);
 					}
 				}).start();
 				
