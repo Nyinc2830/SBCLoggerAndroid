@@ -29,7 +29,6 @@ import android.widget.TabHost;
 import android.widget.Toast;
 import android.widget.TabHost.TabContentFactory;
 
-import com.camera.simplemjpeg.*;
 
 //import com.example.phidgetgraphingapplication.PhidgetGraphViewTab;
 /**
