@@ -1,4 +1,5 @@
 package com.greenenergyresearch.jamesfolk.datalogger;
+import java.util.concurrent.Executors;
 
 import java.io.IOException;
 import java.net.URI;
@@ -9,8 +10,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -49,15 +52,92 @@ public class MjpegActivity extends Fragment implements BaseTab{
     private boolean suspending = false;
     private boolean created = false;
 
+    AsyncTask doreadit;
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         Log.d("Tag", "FragmentA.onDestroyView() has been called.");
 //        onPause();
-//        doreadit.cancel(true);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+            doreadit.cancel(true);
     }
 
+//    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
+//    @Override
+//    public View onCreateView(LayoutInflater inflater,
+//                             ViewGroup container,
+//                             Bundle savedInstanceState)
+//    {
+//        if (container == null)
+//        {
+//            // We have different layouts, and in one of them this
+//            // fragment's containing frame doesn't exist.  The fragment
+//            // may still be created from its saved state, but there is
+//            // no reason to try to create its view hierarchy because it
+//            // won't be displayed.  Note this is not needed -- we could
+//            // just run the code below, where we would create and return
+//            // the view hierarchy; it would just never be used.
+//            return null;
+//        }
+//
+////        SharedPreferences preferences = getSharedPreferences("SAVED_VALUES", MODE_PRIVATE);
+////        width = preferences.getInt("width", width);
+////        height = preferences.getInt("height", height);
+////        ip_ad1 = preferences.getInt("ip_ad1", ip_ad1);
+////        ip_ad2 = preferences.getInt("ip_ad2", ip_ad2);
+////        ip_ad3 = preferences.getInt("ip_ad3", ip_ad3);
+////        ip_ad4 = preferences.getInt("ip_ad4", ip_ad4);
+////        ip_port = preferences.getInt("ip_port", ip_port);
+////        ip_command = preferences.getString("ip_command", ip_command);
+//
+//        StringBuilder sb = new StringBuilder();
+//        String s_http = "http://";
+//        String s_dot = ".";
+//        String s_colon = ":";
+//        String s_slash = "/";
+//        sb.append(s_http);
+////        sb.append(ip_ad1);
+////        sb.append(s_dot);
+////        sb.append(ip_ad2);
+////        sb.append(s_dot);
+////        sb.append(ip_ad3);
+////        sb.append(s_dot);
+////        sb.append(ip_ad4);
+//
+//
+//        m_IPAddress = getActivity().getIntent().getStringExtra("address");
+//        sb.append(m_IPAddress);
+//        sb.append(s_colon);
+//        sb.append(ip_port);
+//        sb.append(s_slash);
+//        sb.append(ip_command);
+//        URL = new String(sb);
+//
+//        View view = inflater.inflate(R.layout.main, container, false);
+//
+//        //setContentView(R.layout.main);
+//        mv = (MjpegView) view.findViewById(R.id.mv);
+//        if(mv != null){
+//            mv.setResolution(width, height);
+//        }
+//
+////        if(!created)
+//        {
+////            new DoRead().execute(URL);
+//            new DoRead().executeOnExecutor(Executors.newSingleThreadExecutor(), URL);
+//        }
+////        else
+////        {
+////            onResume();
+////        }
+////
+//        created = true;
+//
+//        return (LinearLayout)view;
+//    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
 	public View onCreateView(LayoutInflater inflater, 
 			ViewGroup container,
@@ -115,10 +195,17 @@ public class MjpegActivity extends Fragment implements BaseTab{
         if(mv != null){
         	mv.setResolution(width, height);
         }
-        
+
 //        if(!created)
         {
-            new DoRead().execute(URL);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                new DoRead().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, URL);
+            }
+            else {
+                doreadit = new DoRead().execute(URL);
+            }
+//            new DoRead().execute(URL);
+//            new DoRead().executeOnExecutor(Executors.newSingleThreadExecutor(), URL);
         }
 //        else
 //        {
