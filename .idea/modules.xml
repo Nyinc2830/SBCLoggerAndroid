@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DataLogger.iml" filepath="$PROJECT_DIR$/DataLogger.iml" />
       <module fileurl="file://$PROJECT_DIR$/Mail/GMail.iml" filepath="$PROJECT_DIR$/Mail/GMail.iml" />
       <module fileurl="file://$PROJECT_DIR$/Phidgets/Phidgets21.iml" filepath="$PROJECT_DIR$/Phidgets/Phidgets21.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greenenergyresearch_androidstudio.iml" filepath="$PROJECT_DIR$/greenenergyresearch_androidstudio.iml" />
     </modules>
   </component>
 </project>
